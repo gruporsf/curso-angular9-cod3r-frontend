@@ -3,35 +3,30 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-
-// TODO: Replace this with your own data model type
-export interface ProdutoListar2Item {
-  name: string;
-  id: number;
-}
+import { Produto } from '../produto.model';
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: ProdutoListar2Item[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+const EXAMPLE_DATA: Produto[] = [
+  {id: 1, nome: 'Hydrogen', preco: 9.99},
+  {id: 2, nome: 'Helium', preco: 9.99},
+  {id: 3, nome: 'Lithium', preco: 9.99},
+  {id: 4, nome: 'Beryllium', preco: 9.99},
+  {id: 5, nome: 'Boron', preco: 9.99},
+  {id: 6, nome: 'Carbon', preco: 9.99},
+  {id: 7, nome: 'Nitrogen', preco: 9.99},
+  {id: 8, nome: 'Oxygen', preco: 9.99},
+  {id: 9, nome: 'Fluorine', preco: 9.99},
+  {id: 10, nome: 'Neon', preco: 9.99},
+  {id: 11, nome: 'Sodium', preco: 9.99},
+  {id: 12, nome: 'Magnesium', preco: 9.99},
+  {id: 13, nome: 'Aluminum', preco: 9.99},
+  {id: 14, nome: 'Silicon', preco: 9.99},
+  {id: 15, nome: 'Phosphorus', preco: 9.99},
+  {id: 16, nome: 'Sulfur', preco: 9.99},
+  {id: 17, nome: 'Chlorine', preco: 9.99},
+  {id: 18, nome: 'Argon', preco: 9.99},
+  {id: 19, nome: 'Potassium', preco: 9.99},
+  {id: 20, nome: 'Calcium', preco: 9.99},
 ];
 
 /**
@@ -39,8 +34,8 @@ const EXAMPLE_DATA: ProdutoListar2Item[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ProdutoListar2DataSource extends DataSource<ProdutoListar2Item> {
-  data: ProdutoListar2Item[] = EXAMPLE_DATA;
+export class ProdutoListar2DataSource extends DataSource<Produto> {
+  data: Produto[] = EXAMPLE_DATA;
   paginator: MatPaginator;
   sort: MatSort;
 
@@ -53,7 +48,7 @@ export class ProdutoListar2DataSource extends DataSource<ProdutoListar2Item> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ProdutoListar2Item[]> {
+  connect(): Observable<Produto[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +72,7 @@ export class ProdutoListar2DataSource extends DataSource<ProdutoListar2Item> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ProdutoListar2Item[]) {
+  private getPagedData(data: Produto[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +81,7 @@ export class ProdutoListar2DataSource extends DataSource<ProdutoListar2Item> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ProdutoListar2Item[]) {
+  private getSortedData(data: Produto[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -94,7 +89,8 @@ export class ProdutoListar2DataSource extends DataSource<ProdutoListar2Item> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        //case 'preco': return compare(a.preco, b.preco, isAsc);
+        case 'nome': return compare(a.nome, b.nome, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
