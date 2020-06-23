@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +27,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 
+//Carrega as configurações PT-BR
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+import { ProdutoAtualizarComponent } from './components/produto/produto-atualizar/produto-atualizar.component';
+import { ProdutoApagarComponent } from './components/produto/produto-apagar/produto-apagar.component';
+
+registerLocaleData(localePt);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +48,8 @@ import { MatSortModule } from '@angular/material/sort';
     ProdutoCriarComponent,
     ProdutoListarComponent,
     ProdutoListar2Component,
+    ProdutoAtualizarComponent,
+    ProdutoApagarComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +69,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [{
+    //Parte da configuração PT-BR
+    provide: LOCALE_ID,
+    useValue: 'pt-BR'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

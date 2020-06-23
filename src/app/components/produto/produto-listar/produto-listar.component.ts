@@ -11,6 +11,8 @@ export class ProdutoListarComponent implements OnInit {
 
   produtos: Produto[];
 
+  displayedColumns = ['id', 'nome', 'preco', 'acoes'];
+
   constructor(private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
